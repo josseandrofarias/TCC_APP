@@ -2,18 +2,18 @@ import React from "react";
 import {Text} from "react-native";
 import {createAppContainer} from "react-navigation";
 import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom-tabs";
+
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-import App from "./App";
+// import App from "./App";
+import Mapa from "./pages/Mapa/index";
 import Colaboracoes from "./pages/Colaborar/index";
 import Ajustes from "./pages/Ajustes/index";
-
-Icon.loadFont();
 
 const MenuRoutes = {
     Mapa: {
         name: 'Mapa',
-        screen: App,
+        screen: Mapa,
         navigationOptions: {
             // title: 'Mapa',
             tabBarLabel: <Text style={{color: "white"}}>Mapa</Text>,
@@ -28,14 +28,14 @@ const MenuRoutes = {
         navigationOptions: {
             // title: 'Colaborações',
             tabBarLabel: <Text style={{color: "white"}}>Colaborações</Text>,
-            barStyle: {backgroundColor: "#03DAC6"},
+            barStyle: {backgroundColor: "#03a18d"},
             tabBarIcon: ({tintColor}) =>
                 <Icon name={'whatshot'} size={25} color={tintColor}/>
         },
     },
     Ajustes: {
         name: 'Ajustes',
-        screen: App,
+        screen: Ajustes,
         navigationOptions: {
             // title: 'Ajustes',
             tabBarLabel: <Text style={{color: "white"}}>Ajustes</Text>,
