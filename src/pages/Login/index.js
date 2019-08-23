@@ -5,11 +5,15 @@ import {View, SafeAreaView, Image, TouchableOpacity, Text, KeyboardAvoidingView,
 import { Button, TextInput} from 'react-native-paper';
 
 import Styles from'./style'
+import Cadastro from "../Cadastro";
+import App from '../../App'
+import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 
-export default class Login extends Component {
+class Login extends Component {
     state = {
         login: '',
-        senha: ''
+        senha: '',
+        cad: false
     };
 
     render() {
@@ -66,7 +70,7 @@ export default class Login extends Component {
                                 color={"#694fad"}
                                 icon=""
                                 mode="contained"
-                                onPress={() => console.log('Pressed')}
+                                onPress={() => this.props.navigation.navigate('app')}
                                 style={Styles.button}
                             >
                                 Entrar
@@ -75,11 +79,13 @@ export default class Login extends Component {
                                 color={"#7672d1"}
                                 icon=""
                                 mode="contained"
-                                onPress={() => console.log('Pressed')}
+                                onPress={() => this.props.navigation.navigate('cadastro')}
                                 style={Styles.button}
                             >
                                 Criar uma Conta
                             </Button>
+
+                            { this.state.cad && <Cadastro /> }
                         </View>
                     </KeyboardAvoidingView>
                 </SafeAreaView>
@@ -87,3 +93,11 @@ export default class Login extends Component {
         );
     }
 }
+
+const StackNavigation = createSwitchNavigator({
+    login: Login,
+    cadastro: Cadastro,
+    app: App,
+});
+
+export default createAppContainer(StackNavigation);
