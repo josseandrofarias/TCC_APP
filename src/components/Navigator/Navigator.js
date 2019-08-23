@@ -6,9 +6,9 @@ import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 // import App from "./App";
-import Mapa from "./pages/Mapa/index";
-import Colaboracoes from "./pages/Colaborar/index";
-import Ajustes from "./pages/Ajustes/index";
+import Mapa from "../../pages/Mapa";
+import Colaboracoes from "../../pages/Colaborar";
+import Ajustes from "../../pages/Ajustes";
 
 const MenuRoutes = {
     Mapa: {
