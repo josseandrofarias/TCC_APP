@@ -5,7 +5,6 @@ import {createMaterialBottomTabNavigator} from "react-navigation-material-bottom
 
 import Icon from "react-native-vector-icons/MaterialIcons";
 
-// import App from "./App";
 import Mapa from "../../pages/Mapa";
 import Colaboracoes from "../../pages/Colaborar";
 import Ajustes from "../../pages/Ajustes";
@@ -51,7 +50,7 @@ const MenuConfig = {
     // tabBarOptions: {
     //     showLabel: false
     // }
-    initialRouteName: 'Mapa',
+    initialRouteName: 'Ajustes',
     activeColor: '#f0edf6', //cor texto
     inactiveColor: '#3e2465',
     barStyle: {backgroundColor: '#694fad'},

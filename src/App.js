@@ -1,22 +1,17 @@
 import React, {Fragment} from 'react';
-import {
-    SafeAreaView,
-    View,
-    Text,
-} from 'react-native';
+import Navigator from "./components/Navigator/Navigator";
 
-import {createMaterialBottomTabNavigator} from 'react-navigation-material-bottom-tabs'
-// import { createStackNavigator, createAppContainer } from "react-navigation";
+import Reactotron, { overlay } from 'reactotron-react-native'
+
+console.tron = Reactotron
+ .configure()
+ .useReactNative()
+ .use(overlay())
+ .connect()
 
 const App = () => {
     return (
-        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-            <Text>Home Screen</Text>
-        </View>
+        <Navigator/>
     );
 };
 export default App;
-
-
-
-
