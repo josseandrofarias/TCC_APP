@@ -1,14 +1,24 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, { Component } from "react";
+import { Image, ScrollView } from "react-native";
+import { SafeAreaView } from "react-navigation";
 
-const Ajustes = ({ navigation }) => (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Ajustes</Text>
-    </View>
-);
+import Styles from "./style";
+import Menu from "../../components/Menu";
 
-Ajustes.navigationOptions = {
-    title: 'Ajustes',
+class Ajustes extends Component {
+  render() {
+    return (
+      <ScrollView>
+        <SafeAreaView>
+            <Image
+            style={Styles.img}
+            source={require('../../imagens/user-default.png')}
+            />
+            <Menu/>
+        </SafeAreaView>
+      </ScrollView>
+    );
+  }
 }
 
 export default Ajustes;
