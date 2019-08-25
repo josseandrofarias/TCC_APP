@@ -188,9 +188,13 @@ android {
 }
 
 dependencies {
+    implementation project(':@react-native-community_geolocation')
+    implementation project(':react-native-location')
+    implementation project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
-
+    implementation project(':react-native-maps') //Dependencia para a integração de maps
+    implementation project(':react-native-community-geolocation')
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermesvm/android/";
       debugImplementation files(hermesPath + "hermes-debug.aar")
