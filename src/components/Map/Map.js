@@ -7,9 +7,10 @@ import Styles from './style';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import Ux from "../../funcoes/UxProporcaoTela";
 import Geolocation from '@react-native-community/geolocation';
+import {Button} from "react-native-paper";
 
 const ASPECT_RATIO = Ux.aspectRatio
-const LATITUDE_DELTA = parseFloat(0.0952)
+const LATITUDE_DELTA = parseFloat(0.009)
 const LONGITUTE_DELTA = parseFloat(LATITUDE_DELTA + ASPECT_RATIO)
 
 export default class Map extends Component {
@@ -43,7 +44,7 @@ export default class Map extends Component {
                 this.setState({markerPosition: initialRegion})
 
             },
-            error => Alert.alert('Error', JSON.stringify(error)),
+            error => Alert.alert('Error', 'Ligue O GPS, não foi possível obter localização - ' + JSON.stringify(error)),
             {enableHighAccuracy: true, timeout: 20000, maximumAge: 1000},
         );
         this.watchID = Geolocation.watchPosition((position) => {
@@ -68,7 +69,7 @@ export default class Map extends Component {
         navigator.geolocation.clearWatch(this.watchID)
     }
 
-    render(): React.ReactElement<any, string | React.JSXElementConstructor<any>> | string | number | {} | React.ReactNodeArray | React.ReactPortal | boolean | null | undefined {
+    render(){
         return (
             <View style={Styles.container}>
                 <MapView
@@ -82,6 +83,19 @@ export default class Map extends Component {
                     // zoomEnabled = {true}
                 >
                 </MapView>
+                <View style={Styles.buttonContainer}>
+                    <Button
+                    color={"#7672d1"}
+                    icon=""
+                    mode="contained"
+                    style={Styles.button}
+                >
+                    Cadastrar Ocorrência
+                </Button>
+                </View>
+
+
+
             </View>
         );
     }

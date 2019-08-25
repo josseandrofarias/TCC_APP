@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import Ux from "../../funcoes/UxProporcaoTela";
 
 export default StyleSheet.create({
     container: {
@@ -20,8 +21,8 @@ export default StyleSheet.create({
     },
 
     placesContainer: {
-        width: '100%',
-        maxHeight: 200,
+        width: Ux.widthPercentageToDP('100'),
+        maxHeight: Ux.heightPercentageToDP('200'),
     },
 
     title: {
@@ -34,5 +35,12 @@ export default StyleSheet.create({
         color: '#999',
         fontSize: 12,
         marginTop: 5,
+    },
+    button: {
+        marginBottom: Ux.heightPercentageToDP('1'),
+        paddingHorizontal: Ux.widthPercentageToDP('1'),
+    },
+    buttonContainer: {
+        padding: Ux.heightPercentageToDP('1')
     },
 });
