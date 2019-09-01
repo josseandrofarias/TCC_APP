@@ -3,7 +3,7 @@ import { View, Text } from 'react-native';
 
 const Colaborar = ({ navigation }) => (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Home ;D</Text>
+        <Text>Colaborações</Text>
     </View>
 );
 

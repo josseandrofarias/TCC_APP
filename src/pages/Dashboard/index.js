@@ -1,59 +1,38 @@
-import React from 'react';
-import { createAppContainer } from 'react-navigation';
-import { createMaterialBottomTabNavigator } from 'react-navigation-material-bottom-tabs';
-// import Icon from 'react-native-vector-icons/FontAwesome';
+import React, { Component } from 'react';
+import { View, Text, Button, TouchableOpacity } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import { createStackNavigator } from 'react-navigation'
 
-import Ajustes from '../src/pages/Ajustes/index';
-import Colaborar from '../src/pages/Colaborar/index';
-// import {SafeAreaView, Text, View} from "react-native";
-// Icon.loadFont();
-import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Text,
-    StatusBar,
-} from 'react-native';
+import Styles from '../Login/style';
 
+class CPUHome extends Component {
 
-const mainNavigation = () => {
-    return (
-        <SafeAreaView>
-            <View >
-                <Text>Engine:</Text>
+    static navigationOptions = ({ navigation }) => ({
+        title: "CPU",
+        headerLeft: (
+            <TouchableOpacity
+                style={Styles.headerButton}
+                onPress={() => navigation.openDrawer()}>
+                <Icon name="bars" size={20} />
+            </TouchableOpacity>
+        ),
+    })
+    render() {
+        return (
+            <View style={Styles.container}>
+                <Text>CPU Settings</Text>
+                <Icon name="microchip" size={48} />
+                <Button
+                    onPress={() => this.props.navigation.navigate("Details")}
+                    title="Go To Details"
+                />
             </View>
-        </SafeAreaView>
-    );
-};
+        );
+    }
+}
 
-export default mainNavigation;
-//
-//
-// const mainNavigation = createMaterialBottomTabNavigator(
-//     {
-//         Colaborar: {
-//             screen: Colaborar,
-//             navigationOptions: () => ({
-//                 tabBarIcon: ({ focused }) => (
-//                     <Icon name="lock" size={20} color={focused ? '#fff' : '#ddd'} />
-//                 ),
-//             }),
-//         },
-//         Ajustes: {
-//             screen: Ajustes,
-//             navigationOptions: () => ({
-//                 tabBarIcon: ({ focused }) => (
-//                     <Icon name="lock" size={20} color={focused ? '#fff' : '#ddd'} />
-//                 ),
-//             }),
-//         },
-//     },
-//     {
-//         barStyle: {
-//             backgroundColor: '#7159c1',
-//         },
-//     },
-// );
-//
-// export default createAppContainer(mainNavigation);
+
+
+export default createStackNavigator({
+    CPUHome
+});
