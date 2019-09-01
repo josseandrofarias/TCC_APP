@@ -7,47 +7,35 @@ import Styles from "./style";
 import Menu from "../../components/Menu";
 
 import DadosUser from "../../components/MenuDadosUser/index"
+import Sobre from "../../components/Sobre/index"
 
 const AjustesRouters = {
-  Menu: Menu,
+  Menu: {
+    screen: Menu,
+    navigationOptions: {
+      header: null,
+    },
+  },
   DadosUser: {
     screen: DadosUser,
     navigationOptions: {
       headerTitle: 'Meus Dados',
-      headerBackTitle: 'A much too long text for back button from B to A',
-      headerTruncatedBackTitle: `to A`,
+      headerBackTitle: null,
+    },
+  },
+  Sobre: {
+    screen: Sobre,
+    navigationOptions: {
+      headerTitle: 'Sobre',
+      headerBackTitle: null,
     },
   },
 }
 
 const RoutesConfig = {
-  headerMode: 'screen',
+  headerMode: 'float',
   mode: 'card',
-  defaultNavigationOptions: {
-    gesturesEnabled: true,
-  },
-  transitionConfig: () => ({
-    transitionSpec: {
-      duration: 300,
-    },
-    screenInterpolator: sceneProps => {
-      const { layout, position, scene } = sceneProps;
-      const { index } = scene;
-
-      const height = layout.initHeight;
-      const translateY = position.interpolate({
-        inputRange: [index - 1, index, index + 1],
-        outputRange: [height, 0, 0],
-      });
-
-      const opacity = position.interpolate({
-        inputRange: [index - 1, index - 0.99, index],
-        outputRange: [0, 1, 1],
-      });
-
-      return { opacity, transform: [{ translateY }] };
-    },
-  }),
+  headerBackTitleVisible: true
 }
 
 const MainStack = createStackNavigator(AjustesRouters, RoutesConfig);
