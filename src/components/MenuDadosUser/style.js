@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-// "#694fad"
+import Ux from "../../funcoes/UxProporcaoTela"
 const styles =  StyleSheet.create({
     container: {
         flex: 1,
@@ -11,27 +11,27 @@ const styles =  StyleSheet.create({
         justifyContent: 'center',
         marginTop: '1%'
     },
-    logo:{
-        width: 100,
-        height: 100,
+    img:{
+        width: Ux.widthPercentageToDP(100),
+        height: Ux.heightPercentageToDP(30),
     },
     buttonLogin:{
         backgroundColor: "#694fad"
     },
     input: {
         marginBottom: 2,
-        paddingHorizontal: 8,
+        paddingHorizontal: 2,
         // backgroundColor: "#694fad",
     },
     inputContainer: {
         padding: 20
     },
     button: {
-        marginBottom: 20,
+        marginBottom: 10,
         paddingHorizontal: 10,
     },
     buttonContainer: {
-        padding: 40
+        padding: 20
     },
     buttonEsqueciContainer: {
         padding: 20
