@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, Image, SafeAreaView } from "react-native";
+import { View, Image, SafeAreaView, StatusBar } from "react-native";
 import { List, Avatar } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
@@ -8,7 +8,9 @@ import Styles from "./style";
 class Menu extends Component {
   render() {
     return (
+      
       <SafeAreaView>
+      <StatusBar barStyle={"dark-content"} />
         <Image
           style={Styles.img}
           source={require("../../imagens/user-default.png")}
@@ -64,7 +66,7 @@ class Menu extends Component {
               />
             )}
             style={Styles.listItem}
-            onPress={() => alert("Info")}
+            onPress={() => this.props.navigation.navigate("Sobre")}
           />
         </View>
       </SafeAreaView>
