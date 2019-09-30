@@ -33,7 +33,6 @@ target 'TCC_APP' do
   pod 'Google-Maps-iOS-Utils' # Uncomment this line if you want to support GoogleMaps on iOS
 
 
-  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
   pod 'react-native-location', :path => '../node_modules/react-native-location'
 
@@ -51,6 +50,8 @@ target 'TCC_APP' do
   pod 'react-native-google-maps', :path => rn_maps_path
   pod 'GoogleMaps'
   pod 'Google-Maps-iOS-Utils'
+
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 end
 
 target 'TCC_APP-tvOS' do
