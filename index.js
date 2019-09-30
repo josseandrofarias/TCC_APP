@@ -1,14 +1,20 @@
 /**
  * @format
  */
-import * as React from 'react';
-import {AppRegistry} from 'react-native';
+import * as React from 'react'
+import { Provider } from 'react-redux'
+import {AppRegistry} from 'react-native'
 import Login from "./src/pages/Login/index"
-import { Provider as PaperProvider } from 'react-native-paper';
-import {name as appName} from './app.json';
-import { YellowBox } from 'react-native';
-import Ajustes from './src/pages/Ajustes';
-import App from './src/App';
+import { Provider as PaperProvider } from 'react-native-paper'
+import {name as appName} from './app.json'
+import { YellowBox } from 'react-native'
+import Ajustes from './src/pages/Ajustes'
+import App from './src/App'
+
+import storeConfig from "./src/store/storeConfig"
+
+const store = storeConfig()
+
 
 YellowBox.ignoreWarnings([
     'Warning: componentWillMount is deprecated',
@@ -16,11 +22,17 @@ YellowBox.ignoreWarnings([
     'Module RCTImageLoader requires',
 ]);
 
-export default function Main() {
+const Main = () => {
     return (
         <PaperProvider>
             <App />
         </PaperProvider>
     );
 }
-AppRegistry.registerComponent(appName, () => Main);
+
+const Redux = () => (
+    <Provider store={store}>
+        <Main/>
+    </Provider>
+)
+AppRegistry.registerComponent(appName, () => Redux);
