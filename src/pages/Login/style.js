@@ -35,6 +35,10 @@ const styles =  StyleSheet.create({
     buttonEsqueciContainer: {
         padding: 20
     },
+    dadosInvalidos: {
+        paddingLeft: 20,
+        color: "red"
+    },
     buttonText: {
         color: "rgba(123,86,208,0.99)"
     },

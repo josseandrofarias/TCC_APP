@@ -1,12 +1,13 @@
 import React, {Component, Fragment} from 'react';
 
-import {View, SafeAreaView, Image, ScrollView, KeyboardAvoidingView, StatusBar} from "react-native";
+import {View, SafeAreaView, Image, ScrollView, KeyboardAvoidingView, StatusBar, AsyncStorage, Text, Alert} from "react-native";
 
 import { Button, TextInput} from 'react-native-paper';
 import Login from '../Login/index'
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 
 import Styles from './style'
+import api from "../../services/api";
 
 class Cadastro extends Component {
     state = {
@@ -17,10 +18,30 @@ class Cadastro extends Component {
         email: '',
         telefone: '',
         senha: '',
+        ok: null
+    };
+
+    cadastro = async () => {
+        try {
+            const response = await api.post('/cadastrar', {
+                nome: 'Josseandro Farias 4',
+                email: 'farias.josseandro@gmail.com4',
+                cpf: '06392956144',
+                data_nascimento: '1998-03-25',
+                status: 'true',
+                senha: '258chinelo',
+            });
+            this.setState({ ok: 'Usuário Cadastrado Com Sucesso!'})
+            this.props.navigation.navigate('login')
+        } catch (err) {
+            // Alert('Logado com sucesso!')
+            this.setState({ ok: 'Dados Inválidos!' })
+        }
     };
 
     render() {
         return (
+
             <KeyboardAvoidingView behavior='padding' style={Styles.container}>
 
                 <StatusBar
@@ -116,12 +137,13 @@ class Cadastro extends Component {
                             />
                         </View>
 
+                        { !!this.state.ok && Alert.alert(this.state.ok)}
                         <View style={Styles.buttonContainer}>
                             <Button
                                 color={"#694fad"}
                                 icon=""
                                 mode="contained"
-                                onPress={() => console.log('Pressed')}
+                                onPress={() => this.cadastro()}
                                 style={Styles.button}
                             >
                                 Criar Conta
@@ -135,7 +157,9 @@ class Cadastro extends Component {
                             >
                                 Fazer Login
                             </Button>
+
                         </View>
+
                     </ScrollView>
                 </SafeAreaView>
             </KeyboardAvoidingView>

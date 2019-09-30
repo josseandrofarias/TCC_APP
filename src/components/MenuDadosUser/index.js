@@ -8,25 +8,60 @@ import {
   ScrollView,
   KeyboardAvoidingView,
   StatusBar,
-  Alert
+  Alert, AsyncStorage
 } from "react-native";
 
 import { Button, TextInput } from "react-native-paper";
 
 import Styles from "./style";
+import api from "../../services/api";
 
 class DadosUser extends Component {
   state = {
-    nome: "Josseandro",
-    sobrenome: "Farias",
-    cpf: "063.029.561-40",
-    datanasc: "25/03/1998",
-    email: "farias.josseandro@gmail.com",
-    telefone: "(67) 9 8113-3169",
-    senha: "*********",
+    id_pessoa: "",
+    nome: "Nome",
+    sobrenome: "Sobreome",
+    cpf: "00000000000",
+    data_nascimento: "00/00/0000",
+    email: "email@email.com",
+    telefone: "(67) 9 0000-0000",
+    senha: "",
     editar: true,
     buttonText: "teste"
   };
+
+  async componentDidMount() {
+    const token = await AsyncStorage.getItem('@CodeApi:token');
+    const user = JSON.parse(await AsyncStorage.getItem('@CodeApi:user')) || null;
+
+    if (token && user){
+      this.setState({ ...user});
+      // this.props.navigation.navigate('app')
+    }
+  }
+
+  atualiza = async () => {
+    try {
+      const response = await api.post('/atualizaCadastro', {
+        id: this.state.id_pessoa,
+        nome: this.state.nome,
+        sobrenome: this.state.sobrenome,
+        email: this.state.email,
+        cpf: this.state.cpf,
+        data_nascimento: this.state.data_nascimento,
+        senha: this.state.senha,
+      });
+      this.setState({ ok: 'Usuário Alterado Com Sucesso!'})
+    } catch (err) {
+      // Alert('Logado com sucesso!')
+      this.setState({ ok: 'Dados Inválidos!' })
+    }
+  };
+
+  alterar = () => {
+    this.setState({ editar: !this.state.editar })
+    !this.state.editar ? this.atualiza() : ""
+  }
 
   render() {
     return (
@@ -88,7 +123,7 @@ class DadosUser extends Component {
                 disabled={this.state.editar}
                 returnKeyType={"next"}
                 mode={"outlined"}
-                value={this.state.datanasc}
+                value={this.state.data_nascimento}
                 onChangeText={datanasc => this.setState({ datanasc })}
                 style={Styles.input}
                 onSubmitEditing={() => this.inputEmail.focus()}
@@ -136,7 +171,7 @@ class DadosUser extends Component {
                 color={"#7672d1"}
                 icon=""
                 mode="contained"
-                onPress={() => this.setState({ editar: !this.state.editar })}
+                onPress={() => this.alterar()}
                 style={Styles.button}
               >
                 {this.state.editar ? "Alterar" : "Salvar"}

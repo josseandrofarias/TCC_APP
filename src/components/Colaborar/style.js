@@ -1,21 +1,6 @@
 import { StyleSheet } from "react-native";
 import Ux from "../../funcoes/UxProporcaoTela" 
-
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    paddingBottom: 8,
-    paddingLeft: 15,
-    paddingRight: 15,
-    paddingTop: 6,
-  },
-  listItem: {
-    // flex: 1, 
-    alignItems: "center"
-  },
-  iconListItem :{
-    alignItems: "baseline",
-  },
   container: {
     alignItems: "center",
     paddingBottom: 8,
@@ -35,7 +20,7 @@ const styles = StyleSheet.create({
   },
   listItem: {
     // flex: 1, 
-    alignItems: "center"
+    alignItems: "center",
   },
   iconListItem :{
     alignItems: "baseline",

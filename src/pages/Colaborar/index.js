@@ -1,14 +1,22 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React, {Component, Fragment} from 'react';
+import Colaborar from "../../components/Colaborar/index";
+import Styles from "../../components/Colaborar/style";
+import {AsyncStorage, SafeAreaView, ScrollView} from "react-native";
 
-const Colaborar = ({ navigation }) => (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Colaborações</Text>
-    </View>
-);
+export default class Colaboracoes extends Component {
 
-Colaborar.navigationOptions = {
-    title: 'Colaborar',
-}
+    render() {
+        return (
+            <SafeAreaView>
+                <ScrollView>
+                    <Colaborar/>
+                </ScrollView>
+            </SafeAreaView>
+        );
+    }
 
-export default Colaborar;
+};
+
+
+
+

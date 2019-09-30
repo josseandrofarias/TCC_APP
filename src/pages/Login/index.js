@@ -1,20 +1,65 @@
 import React, {Component, Fragment} from 'react';
 
-import {View, SafeAreaView, Image, TouchableOpacity, Text, KeyboardAvoidingView, StatusBar} from "react-native";
+import {View, SafeAreaView, Image, TouchableOpacity, Text, KeyboardAvoidingView, StatusBar, AsyncStorage, Alert} from "react-native";
 
 import { Button, TextInput} from 'react-native-paper';
 
 import Styles from'./style'
 import Cadastro from "../Cadastro";
 import App from '../../App'
+import Navigator from "../../components/Navigator/Navigator";
+
+import api from "../../services/api";
+
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 
 class Login extends Component {
     state = {
         login: '',
         senha: '',
-        cad: false
+        cad: false,
+        errorMessage: '',
+        nomeUser: null,
+        loggedInUser: null
     };
+
+    login = async () => {
+        console.log('teste')
+        try {
+            const response = await api.post('/login', {
+                email: 'farias.josseandro@gmail.com',
+                senha: '258chinelo',
+            });
+
+            const {id, nome, email, sobrenome, cpf, data_nascimento, token } = response.data;
+            let id_pessoa = id
+            await AsyncStorage.multiSet([
+                ['@CodeApi:token', token],
+                ['@CodeApi:user', JSON.stringify({id_pessoa, nome, sobrenome, email, cpf, data_nascimento})],
+            ]);
+
+            this.setState({ loggedInUser: {email, nome} })
+            this.setState({ nomeUser: nome})
+            // this.props.navigation.navigate('app')
+            // Alert.alert('Logado com sucesso!')
+            this.props.navigation.navigate('app')
+        } catch (err) {
+            // Alert('Logado com sucesso!')
+            this.setState({ errorMessage: 'Usuário ou senha inválidos' })
+        }
+    };
+
+    async componentDidMount() {
+        await AsyncStorage.clear();
+
+        const token = await AsyncStorage.getItem('@CodeApi:token');
+        const user = JSON.parse(await AsyncStorage.getItem('@CodeApi:user')) || null;
+
+        if (token && user){
+            this.setState({ loggedInUser: user });
+            // this.props.navigation.navigate('app')
+        }
+    }
 
     render() {
         return (
@@ -59,6 +104,8 @@ class Login extends Component {
                             />
                         </View>
 
+                        {!!this.state.errorMessage && <Text style={Styles.dadosInvalidos}>{this.state.errorMessage}</Text>}
+
                         <TouchableOpacity style={Styles.buttonEsqueciContainer}>
                             <Text style={Styles.buttonText}>
                                 Esqueci minha senha
@@ -70,7 +117,7 @@ class Login extends Component {
                                 color={"#694fad"}
                                 icon=""
                                 mode="contained"
-                                onPress={() => this.props.navigation.navigate('app')}
+                                onPress={() => this.login()}
                                 style={Styles.button}
                             >
                                 Entrar
@@ -97,7 +144,7 @@ class Login extends Component {
 const StackNavigation = createSwitchNavigator({
     login: Login,
     cadastro: Cadastro,
-    app: App,
+    app: Navigator,
 });
 
 export default createAppContainer(StackNavigation);

@@ -1,13 +1,15 @@
 import React, {Component} from 'react';
 import {
     View,
-    Alert
+    Alert, AsyncStorage, Text, KeyboardAvoidingView
 } from 'react-native';
 import Styles from './style';
+import {Paragraph, Dialog, Portal, TextInput, RadioButton} from 'react-native-paper';
 import MapView, { PROVIDER_GOOGLE, Marker } from 'react-native-maps';
 import Ux from "../../funcoes/UxProporcaoTela";
 import Geolocation from '@react-native-community/geolocation';
 import {Button} from "react-native-paper";
+import api from "../../services/api";
 
 const ASPECT_RATIO = Ux.aspectRatio
 const LATITUDE_DELTA = parseFloat(0.009)
@@ -25,7 +27,15 @@ export default class Map extends Component {
         markerPosition: {
             latitude: 0,
             longitude: 0
-        }
+        },
+        visible: false,
+        cad: null,
+        errorMessage: '',
+        obs: '',
+        setores: {},
+        checked: 'first',
+        items: null,
+        okcad: null
     }
 
     watchID: ?number = null
@@ -63,11 +73,59 @@ export default class Map extends Component {
             this.setState({initialPosition: lastRegion})
             this.setState({markerPosition: lastRegion})
         });
+
+        this.getSetores()
     }
 
     componentWillUnmount() {
         navigator.geolocation.clearWatch(this.watchID)
     }
+
+    cadastrar = async () => {
+        try {
+            let idpessoa = JSON.parse(await AsyncStorage.getItem('@CodeApi:user'));
+            const response = await api.post('/pedido', {
+                id_pessoa: idpessoa.id_pessoa,
+                id_setor: this.state.checked,
+                latitude: this.state.markerPosition.latitude,
+                longitude: this.state.markerPosition.longitude,
+                obs: this.state.obs,
+                tipo: 1,
+            });
+            this.setState({ okCad: 'Cadastrado Com Sucesso!'})
+            Alert.alert('Cadastrado Com Sucesso!')
+            this.props.navigation.navigate('app')
+        } catch (err) {
+            // Alert('Logado com sucesso!')
+            this.setState({ errorMessage: 'Erro ao gravar dados!' })
+        }
+    };
+
+    getSetores = async () => {
+        try {
+            const response = await api.get('/setores');
+
+            this.setState({ setores: response.data})
+        } catch (err) {
+            // Alert('Logado com sucesso!')
+            this.setState({ errorMessage: 'Sem Dados de Setores' })
+        }
+    };
+    _showDialog = () => {
+        this.setState({ visible: true })
+        {this.state.setores && this.getSetores}
+        this.state.items = this.state.setores.map(function (item) {
+            return  ( <View key={item.id}>
+                <Text>{item.nome}</Text>
+                <RadioButton value={item.id} />
+            </View>)
+        })
+    };
+
+    _hideDialog = () => {
+        this.setState({ visible: false })
+        this.cadastrar()
+    };
 
     render(){
         return (
@@ -88,17 +146,50 @@ export default class Map extends Component {
                     color={"#7672d1"}
                     icon=""
                     mode="contained"
+                    onPress={this._showDialog}
                     style={Styles.button}
                 >
                     Cadastrar Ocorrência
                 </Button>
                 </View>
 
+                <Portal>
+                    <Dialog
+                        visible={this.state.visible}
+                        onDismiss={this._hideDialog}>
+                        <Dialog.Title>Alert</Dialog.Title>
+                        <Dialog.Content>
+                            <Paragraph>Informe alguma Observação</Paragraph>
+                            <TextInput
+                                label='Observação'
+                                keyboardType={"email-address"}
+                                returnKeyType={"next"}
+                                mode={'outlined'}
+                                value={this.state.obs}
+                                onChangeText={obs => this.setState({ obs })}
+                                autoCapitalize={"none"}
+                                autoCorrect={false}
+                            />
+                            <RadioButton.Group
+                                onValueChange={checked => this.setState({ checked })}
+                                value={this.state.checked}
+                            >
+                                {this.state.items}
+                            </RadioButton.Group>
 
+                        </Dialog.Content>
+                        <Dialog.Actions>
+                            <Button onPress={this._hideDialog}>Cadastrar</Button>
+                        </Dialog.Actions>
+                    </Dialog>
+                </Portal>
 
+                {!!this.state.okcad && Alert.alert(this.state.okcad)}
+                {!!this.state.errorMessage && Alert.alert(this.state.errorMessage)}
             </View>
         );
     }
+
 
 };
 

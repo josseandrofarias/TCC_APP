@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import Navigator from "./components/Navigator/Navigator";
+import Login from "./pages/Login/index";
 
 import Reactotron, { overlay } from 'reactotron-react-native'
 
@@ -11,7 +12,7 @@ console.tron = Reactotron
 
 const App = () => {
     return (
-        <Navigator/>
+        <Login/>
     );
 };
 export default App;
