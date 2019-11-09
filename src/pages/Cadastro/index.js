@@ -54,7 +54,7 @@ class Cadastro extends Component {
                         <View style={Styles.logoContainer}>
                             <Image
                                 style={Styles.logo}
-                                source={require('../../imagens/logo.png')}
+                                source={require('../../imagens/logo2.png')}
                             />
                         </View>
 
@@ -140,7 +140,7 @@ class Cadastro extends Component {
                         { !!this.state.ok && Alert.alert(this.state.ok)}
                         <View style={Styles.buttonContainer}>
                             <Button
-                                color={"#694fad"}
+                                color={"#7616d7"}
                                 icon=""
                                 mode="contained"
                                 onPress={() => this.cadastro()}
@@ -149,7 +149,7 @@ class Cadastro extends Component {
                                 Criar Conta
                             </Button>
                             <Button
-                                color={"#7672d1"}
+                                color={"#a964ef"}
                                 icon=""
                                 mode="contained"
                                 onPress={() => this.props.navigation.navigate('login')}

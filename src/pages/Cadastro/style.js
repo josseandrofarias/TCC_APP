@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 const styles =  StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#03a18d",
+        backgroundColor: "#f8cc0f",
     },
     logoContainer:{
         alignItems: 'center',
@@ -12,11 +12,14 @@ const styles =  StyleSheet.create({
         marginTop: '1%'
     },
     logo:{
-        width: 100,
-        height: 100,
+        width: 98,
+        height: 110,
+        shadowOffset: {width: 1, height: 1},
+        shadowColor: 'black',
+        shadowOpacity: 0.5
     },
     buttonLogin:{
-        backgroundColor: "#694fad"
+        backgroundColor: "#7616d7"
     },
     input: {
         marginBottom: 2,
@@ -37,7 +40,7 @@ const styles =  StyleSheet.create({
         padding: 20
     },
     buttonText: {
-        color: "rgba(123,86,208,0.99)"
+        color: "#a964ef"
     },
 })
 

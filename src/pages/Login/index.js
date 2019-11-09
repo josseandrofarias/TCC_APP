@@ -15,8 +15,8 @@ import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 
 class Login extends Component {
     state = {
-        login: '',
-        senha: '',
+        login: 'farias.josseandro@gmail.com',
+        senha: '258chinelo',
         cad: false,
         errorMessage: '',
         nomeUser: null,
@@ -57,7 +57,7 @@ class Login extends Component {
 
         if (token && user){
             this.setState({ loggedInUser: user });
-            // this.props.navigation.navigate('app')
+            this.props.navigation.navigate('app')
         }
     }
 
@@ -75,7 +75,7 @@ class Login extends Component {
                         <View style={Styles.logoContainer}>
                             <Image
                                 style={Styles.logo}
-                                source={require('../../imagens/logo.png')}
+                                source={require('../../imagens/logo2.png')}
                             />
                         </View>
 
@@ -114,7 +114,7 @@ class Login extends Component {
 
                         <View style={Styles.buttonContainer}>
                             <Button
-                                color={"#694fad"}
+                                color={"#7616d7"}
                                 icon=""
                                 mode="contained"
                                 onPress={() => this.login()}
@@ -123,7 +123,7 @@ class Login extends Component {
                                 Entrar
                             </Button>
                             <Button
-                                color={"#7672d1"}
+                                color={"#a964ef"}
                                 icon=""
                                 mode="contained"
                                 onPress={() => this.props.navigation.navigate('cadastro')}
