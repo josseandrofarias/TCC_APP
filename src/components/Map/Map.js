@@ -125,7 +125,8 @@ export default class Map extends Component {
 
     _hideDialog = () => {
         this.setState({ visible: false })
-        this.cadastrar()
+        if(this.state.obs != '')
+            this.cadastrar()
     };
 
     render(){
