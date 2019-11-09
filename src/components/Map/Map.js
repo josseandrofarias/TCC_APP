@@ -10,6 +10,7 @@ import Ux from "../../funcoes/UxProporcaoTela";
 import Geolocation from '@react-native-community/geolocation';
 import {Button} from "react-native-paper";
 import api from "../../services/api";
+// import Camera from "../Camera/index"
 
 const ASPECT_RATIO = Ux.aspectRatio
 const LATITUDE_DELTA = parseFloat(0.009)
@@ -33,12 +34,12 @@ export default class Map extends Component {
         errorMessage: '',
         obs: '',
         setores: {},
-        checked: 'first',
+        checked: 'false',
         items: null,
         okcad: null
     }
 
-    watchID: ?number = null
+    watchID: ? number = null
 
     async componentDidMount() {
         Geolocation.getCurrentPosition(
@@ -157,7 +158,7 @@ export default class Map extends Component {
                     <Dialog
                         visible={this.state.visible}
                         onDismiss={this._hideDialog}>
-                        <Dialog.Title>Alert</Dialog.Title>
+                        <Dialog.Title>Cadastrar Ocorrência</Dialog.Title>
                         <Dialog.Content>
                             <Paragraph>Informe alguma Observação</Paragraph>
                             <TextInput
@@ -176,6 +177,7 @@ export default class Map extends Component {
                             >
                                 {this.state.items}
                             </RadioButton.Group>
+                            <Button onPress={() => this.props.navigation.navigate('camera')}>Tirar uma foto</Button>
 
                         </Dialog.Content>
                         <Dialog.Actions>
@@ -183,9 +185,10 @@ export default class Map extends Component {
                         </Dialog.Actions>
                     </Dialog>
                 </Portal>
-
+                
                 {!!this.state.okcad && Alert.alert(this.state.okcad)}
                 {!!this.state.errorMessage && Alert.alert(this.state.errorMessage)}
+                {!!this.state.errorMessage && this.setState({errorMessage: false})}
             </View>
         );
     }

@@ -16,7 +16,7 @@ const MenuRoutes = {
         navigationOptions: {
             // title: 'Mapa',
             tabBarLabel: <Text style={{color: "white"}}>Mapa</Text>,
-            barStyle: {backgroundColor: "#694fad"},
+            barStyle: {backgroundColor: "#f8cc0f"},
             tabBarIcon: ({focused}) =>
                 <Icon name="place" size={25} color={focused ? '#fff' : '#ddd'}/>
         },
@@ -27,7 +27,7 @@ const MenuRoutes = {
         navigationOptions: {
             // title: 'Colaborações',
             tabBarLabel: <Text style={{color: "white"}}>Colaborações</Text>,
-            barStyle: {backgroundColor: "#03a18d"},
+            barStyle: {backgroundColor: "#7616d7"},
             tabBarIcon: ({tintColor}) =>
                 <Icon name={'whatshot'} size={25} color={tintColor}/>
         },

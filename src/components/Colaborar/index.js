@@ -12,6 +12,7 @@ class Colaborar extends Component {
         this.state = {
             pedidos: [],
             items: [],
+            item: [],
             errorMessage: '',
             visible: false
         }
@@ -29,7 +30,10 @@ class Colaborar extends Component {
         }
     }
 
-    _showDialog = () => {
+    _showDialog = (item) => {
+        this.setState({item: item})
+        alert(item.nome)
+        console.log(item)
         this.setState({ visible: true })
         // {this.state.setores && this.getSetores}
         // this.state.items = this.state.setores.map(function (item) {
@@ -65,7 +69,7 @@ class Colaborar extends Component {
                            )}
                            style={Styles.listItem}
                            description={item.obs}
-                           onPress={this._showDialog}
+                           onPress={item => this._showDialog(item)}
                         />
                     ))}
 
@@ -73,9 +77,9 @@ class Colaborar extends Component {
                         <Dialog
                             visible={this.state.visible}
                             onDismiss={this._hideDialog}>
-                                <Dialog.Title>Alert</Dialog.Title>
+                                <Dialog.Title>Detalhes</Dialog.Title>
                             <Dialog.Content>
-                                <Paragraph>Dados Da Ocorrência</Paragraph>
+                                <Paragraph>Twart</Paragraph>
 
                             </Dialog.Content>
                             <Dialog.Actions>
